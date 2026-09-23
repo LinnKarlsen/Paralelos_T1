@@ -1,6 +1,7 @@
 from sklearn.linear_model import LinearRegression
 import numpy as np
 from joblib import Parallel, delayed
+from time import perf_counter
 
 # funcion que devuelve coeficientes de regresion
 def fit_lr(X, y, seed):
@@ -26,11 +27,13 @@ def fit_lr(X, y, seed):
 
 def bs_sklearn(X, y, B, p):
 
+    start_global = perf_counter()
+
     tasks = [delayed(fit_lr)(X, y, seed) for seed in range(B)]
     with Parallel(n_jobs=p, verbose=1) as parallel_pool:
         parallel_results = parallel_pool(tasks)
+    
+    end_global = perf_counter()
+    total_time = end_global - start_global
 
-    print(np.percentile(parallel_results, 2.5, axis = 0)) # lower bounds para vector de betas
-    print(np.percentile(parallel_results, 97.5, axis = 0)) # upper bounds para vector de betas
-
-    return
+    return [parallel_results, total_time]

@@ -1,61 +1,56 @@
 import numpy as np
-from joblib import Parallel, delayed
-import threadpoolctl
 import matplotlib.pyplot as plt
-
-from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import BaggingRegressor
 
 from funciones.bs_auto import bs_auto
 from funciones.bs_sklearn import bs_sklearn
+from funciones.gen_testbench import gen_testbench
 
-######################################################################################
-
-# parametros
+# Parametros
 N = 100
 k = 30
 B = 48
 p = 2
 
-# semillas para que siempre salga igual
+# Semillas
 MAIN_SEED = 42
 semillas = np.random.SeedSequence(MAIN_SEED).spawn(B)
 
-#(I)
+# (a) Generar testbench utilizando la semilla principal
 
 rnd = np.random.default_rng(seed=MAIN_SEED)
-beta = rnd.normal(loc=0, scale=1, size=(k+1, 1))
+[beta, X, y] = gen_testbench(rnd, k, N)
 
-#(II)
+# Revisamos tamaños
+print("Tamaños en (filas, columnas):")
+print("beta:", beta.shape)
+print("X:   ", X.shape)
+print("y:   ", y.shape)
 
-X = rnd.normal(loc=0, scale=1, size=(N, k+1))
-#X=np.random.random(size=(N, k+1))
-X[:,0]=1
+# (b) Algoritmo de bootstrapping, implementado con diferentes metodologías
 
-#(III)
+# Método 1: bs_auto.py
 
-N = rnd.normal(loc=0, scale=1, size=(N, 1))
-# N = np.random.random(size=(N, 1))
-y = (X @ beta) + N
+print("Ejecutando función bs_auto...")
 
-#### tiene que ser un vector normaaaaal
-y = y.reshape(-1)
+coefs = bs_auto(B, p, X, y, MAIN_SEED)
 
+# eliminar 2.5% inferior y 2.5% superior para cada beta
+print(np.percentile(coefs, 2.5, axis = 0))
+print(np.percentile(coefs, 97.5, axis = 0))
 
-# El .shape de las matrices/vectores se expresa como (filas, columnas)
-print(beta.shape)
-print(X.shape)
-print(y.shape)
+# METODO 2: bs_sklearn.py
 
-######################################################################################
+print("Ejecutando función bs_sklearn...")
 
-bs_auto(B, p, X, y, MAIN_SEED)
+p = 4 # Número de trabajadores
 
-p = 2
+[parallel_results, total_time] = bs_sklearn(X, y, B, p)
 
-bs_sklearn(X, y, B, p)
+print("Tiempo total transcurrido:",total_time)
 
-import multiprocessing
+print(np.percentile(parallel_results, 2.5, axis = 0))  # cota inferior para vector de betas
+print(np.percentile(parallel_results, 97.5, axis = 0)) # cota superior para vector de betas
 
-print(multiprocessing.cpu_count())
-print("AMD Ryzen 7 de la serie 7000: 8 núcleos y 16 hilos")
+# MÉTODO 3: ...
+
+# TODO

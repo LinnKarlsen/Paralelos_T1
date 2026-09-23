@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import BaggingRegressor
+from time import perf_counter
 
 def bs_auto(B, p, X, y, MAIN_SEED):
 
@@ -23,6 +24,4 @@ def bs_auto(B, p, X, y, MAIN_SEED):
     estimadores = bagging_regressor.estimators_
     coefs = np.array([est.coef_ for est in estimadores])
 
-    # eliminar 2.5% inferior y 2.5% superior para cada beta
-    print(np.percentile(coefs, 2.5, axis = 0))
-    print(np.percentile(coefs, 97.5, axis = 0))
+    return coefs
