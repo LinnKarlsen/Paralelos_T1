@@ -29,4 +29,7 @@ def bs_numpy(X, y, B, p, verbose = 0):
     # medir
     end = time()
 
+    # convertimos devuelta a np.array
+    parallel_results = np.vstack(parallel_results)
+
     return parallel_results, end-start

@@ -31,8 +31,8 @@ def gen_idx(n, SEED):
 # retorna intervalos de confianza
 def conf_interval(coefs, coef_idx):
 
-    cota_inf = np.percentile(coefs[coef_idx], 2.5, axis = 0)  # cota inferior
-    cota_sup = np.percentile(coefs[coef_idx], 97.5, axis = 0) # cota superior
+    cota_inf = np.percentile(coefs[:, coef_idx], 2.5, axis = 0)  # cota inferior
+    cota_sup = np.percentile(coefs[:, coef_idx], 97.5, axis = 0) # cota superior
 
     return cota_inf, cota_sup
 
@@ -40,10 +40,10 @@ def compare_conf_interval(coefs_auto, coefs_sklearn, coefs_numpy, coef_idx):
 
     auto_inf, auto_sup = conf_interval(coefs_auto, coef_idx)
     sklearn_inf, sklearn_sup = conf_interval(coefs_sklearn, coef_idx)
-    numpy_inf, numpy_sup = conf_interval(coefs_auto, coef_idx)
+    numpy_inf, numpy_sup = conf_interval(coefs_numpy, coef_idx)
 
     print(f"Intervalos de confianza para coeficiente {coef_idx}:")
-    print(f"bs_auto:    ({sklearn_inf}, {sklearn_sup})")
-    print(f"bs_sklearn: ({auto_inf}, {auto_sup})")
+    print(f"bs_auto:    ({auto_inf}, {auto_sup})")
+    print(f"bs_sklearn: ({sklearn_inf}, {sklearn_sup})")
     print(f"bs_numpy:   ({numpy_inf}, {numpy_sup})")
     print()

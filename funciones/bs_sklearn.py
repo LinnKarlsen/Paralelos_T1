@@ -1,6 +1,7 @@
 from sklearn.linear_model import LinearRegression
 from joblib import Parallel, delayed
 from time import time
+import numpy as np
 
 from funciones.funcs import gen_idx
 
@@ -32,5 +33,8 @@ def bs_sklearn(X, y, B, p, verbose = 0):
 
     # medir
     end = time()
+
+    # convertimos devuelta a np.array
+    parallel_results = np.vstack(parallel_results)
 
     return parallel_results, end-start

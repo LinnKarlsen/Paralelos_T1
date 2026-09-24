@@ -15,6 +15,7 @@ if __name__ == "__main__":
     p = int(sys.argv[1])
     verbose = int(sys.argv[2])
     confidence_interval_indices = [0, 8, 22, 47]    # dejar vacío si no se quiere obtener intervalos de confianza
+    #confidence_interval_indeces = []
 
     # semilla
     MAIN_SEED = 42
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     # generar X, y
     rng = np.random.default_rng(seed=MAIN_SEED)
     beta, X, y = gen_testbench(rng, k, N)
+
 
     ####### algoritmos de bootstrapping
 
@@ -45,4 +47,5 @@ if __name__ == "__main__":
 
     # Comparamos para varios coeficientes
     for coef_idx in confidence_interval_indices:
+        print(beta[coef_idx])
         compare_conf_interval(coefs_auto, coefs_sklearn, coefs_numpy, coef_idx)

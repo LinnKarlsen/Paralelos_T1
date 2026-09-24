@@ -31,4 +31,7 @@ def bs_auto(X, y, B, p, MAIN_SEED, verbose = 1):
     estimadores = bagging_regressor.estimators_
     coefs = np.array([est.coef_ for est in estimadores])
 
+    # convertimos devuelta a np.array
+    coefs = np.vstack(coefs)
+
     return coefs, end-start
