@@ -22,8 +22,7 @@ def bs_numpy(X, y, B, p, verbose = 0):
     start = time()
 
     # calcular coefs
-    tasks = [delayed(numpy_solve)(X, y, gen_idx(X.shape[0], i)) 
-             for i in range(B)]
+    tasks = [delayed(numpy_solve)(X, y, gen_idx(X.shape[0], i)) for i in range(B)]
     with Parallel(n_jobs=p, verbose=verbose) as parallel_pool:
         parallel_results = parallel_pool(tasks)
 

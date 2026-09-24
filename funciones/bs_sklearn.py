@@ -26,8 +26,7 @@ def bs_sklearn(X, y, B, p, verbose = 0):
     start = time()
 
     # calcular coefs
-    tasks = [delayed(fit_lr)(X, y, gen_idx(X.shape[0], i)) 
-             for i in range(B)]
+    tasks = [delayed(fit_lr)(X, y, gen_idx(X.shape[0], i)) for i in range(B)]
     with Parallel(n_jobs=p, verbose=verbose) as parallel_pool:
         parallel_results = parallel_pool(tasks)
 
