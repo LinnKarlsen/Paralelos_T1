@@ -36,13 +36,13 @@ def conf_interval(coefs, coef_idx):
 
     return cota_inf, cota_sup
 
-def compare_conf_interval(coefs_auto, coefs_sklearn, coefs_numpy, coef_idx):
+def compare_conf_interval(coefs_auto, coefs_sklearn, coefs_numpy, beta, coef_idx):
 
     auto_inf, auto_sup = conf_interval(coefs_auto, coef_idx)
     sklearn_inf, sklearn_sup = conf_interval(coefs_sklearn, coef_idx)
     numpy_inf, numpy_sup = conf_interval(coefs_numpy, coef_idx)
 
-    print(f"Intervalos de confianza para coeficiente {coef_idx}:")
+    print(f"Intervalos de confianza para el coeficiente {coef_idx}, con valor exacto {beta[coef_idx][0]}:")
     print(f"bs_auto:    ({auto_inf}, {auto_sup})")
     print(f"bs_sklearn: ({sklearn_inf}, {sklearn_sup})")
     print(f"bs_numpy:   ({numpy_inf}, {numpy_sup})")
