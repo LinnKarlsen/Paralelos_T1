@@ -16,7 +16,8 @@ if __name__ == "__main__":
     B = 48
     p = int(sys.argv[1])
     verbose = int(sys.argv[2])
-    confidence_interval_indices = [0, 8, 22, 47]    # dejar vacío si no se quiere obtener intervalos de confianza
+    #confidence_interval_indices = [0, 8, 22, 47]    # dejar vacío si no se quiere obtener intervalos de confianza
+    confidence_interval_indices = []
 
     # semilla
     MAIN_SEED = 42
@@ -43,6 +44,9 @@ if __name__ == "__main__":
     coefs_numpy, bs_numpy_time = bs_numpy(X, y, B, p, verbose = verbose)
     print(f"Tiempo total: {bs_numpy_time}\n")
 
+    # print útil para el latex:
+    #print(f"{bs_auto_time} & {bs_sklearn_time} & {bs_numpy_time}")
+
 
     ####### intervalos de confianza
 
@@ -54,8 +58,8 @@ if __name__ == "__main__":
     ######## actividad del sistema con bs_numpy
 
     # Esto no funcionó muy bien tbh
-    for p in range(1, 16):
-        print(f"p: {p}\n")
-        coefs_numpy, bs_numpy_time = bs_numpy(X, y, B, p, verbose = verbose)
-        for pool in threadpool_info():
-            print(pool)
+    #for p in range(1, 16):
+    #    print(f"p: {p}\n")
+    #    coefs_numpy, bs_numpy_time = bs_numpy(X, y, B, p, verbose = verbose)
+    #    for pool in threadpool_info():
+    #        print(pool)
