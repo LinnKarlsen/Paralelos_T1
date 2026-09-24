@@ -1,57 +1,40 @@
 import numpy as np
+import sys
 
 from funciones.bs_auto import bs_auto
 from funciones.bs_sklearn import bs_sklearn
 from funciones.bs_numpy import bs_numpy
-from funciones.gen_funcs import gen_testbench
+from funciones.funcs import gen_testbench
 
-# Parametros
-N = 100000
-k = 300
-B = 48
-p = 8
+if __name__ == "__main__":
 
-# Semillas
-MAIN_SEED = 42
+    # parametros
+    N = 10000
+    k = 300
+    B = 48
+    p = int(sys.argv[1])
+    verbose = int(sys.argv[2])
 
-# (a) Generar testbench utilizando la semilla principal
+    # semilla
+    MAIN_SEED = 42
 
-rnd = np.random.default_rng(seed=MAIN_SEED)
-beta, X, y = gen_testbench(rnd, k, N)
+    # generar X, y
+    rng = np.random.default_rng(seed=MAIN_SEED)
+    beta, X, y = gen_testbench(rng, k, N)
 
-# Revisamos tamaños
-print("Tamaños en (filas, columnas):")
-print("beta:", beta.shape)
-print("X:   ", X.shape)
-print("y:   ", y.shape)
+    ####### algoritmos de bootstrapping
 
-# (b) Algoritmo de bootstrapping, implementado con diferentes metodologías
+    # bs_auto.py
+    print("\nEjecutando función bs_auto...")
+    coefs, bs_auto_time = bs_auto(X, y, B, p, MAIN_SEED, verbose = verbose)
+    print(f"Tiempo total: {bs_auto_time}\n")
 
-# Método 1: bs_auto.py
-print(3*"\n")
-print("Ejecutando función bs_auto...")
+    # bs_auto.py
+    print("Ejecutando función bs_sklearn...")
+    coefs, bs_sklearn_time = bs_sklearn(X, y, B, p, verbose = verbose)
+    print(f"Tiempo total: {bs_sklearn_time}\n")
 
-coefs = bs_auto(X, y, B, p, MAIN_SEED)
-
-# eliminar 2.5% inferior y 2.5% superior para cada beta
-#print(beta)
-#print(np.percentile(coefs, 2.5, axis = 0))
-#print(np.percentile(coefs, 97.5, axis = 0))
-
-
-# METODO 2: bs_sklearn.py
-
-print(3*"\n")
-print("Ejecutando función bs_sklearn...")
-
-p = 4 # Número de trabajadores
-
-parallel_results, total_time = bs_sklearn(X, y, B, p)
-
-print("Tiempo total transcurrido:",total_time)
-
-#print(np.percentile(parallel_results, 2.5, axis = 0))  # cota inferior para vector de betas
-#print(np.percentile(parallel_results, 97.5, axis = 0)) # cota superior para vector de betas
-# MÉTODO 3: ...
-
-# TODO
+    # bs_auto.py
+    print("Ejecutando función bs_numpy...")
+    coefs, bs_numpy_time = bs_numpy(X, y, B, p, verbose = verbose)
+    print(f"Tiempo total: {bs_numpy_time}\n")

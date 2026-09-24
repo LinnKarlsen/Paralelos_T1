@@ -2,7 +2,7 @@ import numpy as np
 from joblib import Parallel, delayed
 from time import time
 
-from gen_funcs import gen_idx
+from funciones.funcs import gen_idx
 
 # funcion que devuelve coeficientes de regresion
 def numpy_solve(X, y, idx):

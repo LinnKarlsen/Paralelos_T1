@@ -3,7 +3,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import BaggingRegressor
 from time import time
 
-def bs_auto(X, y, B, p, MAIN_SEED, verbose = 0):
+def bs_auto(X, y, B, p, MAIN_SEED, verbose = 1):
 
     # modelo base para hacer input al bagging
     base_lr = LinearRegression()
