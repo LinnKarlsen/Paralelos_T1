@@ -75,7 +75,7 @@ if __name__ == "__main__":
         print(f"\ncantidad de workers: {p}")
 
         # usar la version con info
-        coefs_numpy, bs_numpy_time = bs_numpy_threadpool(X, y, B, p, verbose = verbose)
+        coefs_numpy, bs_numpy_time = bs_numpy_threadpool(X, y, B, p, verbose = verbose, backend = backend)
 
         # tiempo de ejecucion
         print(f"tiempo total: {bs_numpy_time}\n")
