@@ -1,8 +1,6 @@
 import numpy as np
 import sys
 
-from threadpoolctl import threadpool_info
-
 from funciones.bs_auto import bs_auto
 from funciones.bs_sklearn import bs_sklearn
 from funciones.bs_numpy import bs_numpy
@@ -11,7 +9,7 @@ from funciones.funcs import gen_testbench, compare_conf_interval
 if __name__ == "__main__":
 
     # parametros
-    N = 10000
+    N = 100000 # ESTO ESTABA CON UN CERO MENOS, TOMAR TIEMPOS DE NUEVO
     k = 300
     B = 48
     p = int(sys.argv[1])
@@ -32,20 +30,20 @@ if __name__ == "__main__":
     # bs_auto.py
     print("\nEjecutando función bs_auto...")
     coefs_auto, bs_auto_time = bs_auto(X, y, B, p, MAIN_SEED, verbose = verbose)
-    print(f"Tiempo total: {bs_auto_time}\n")
+    print(f"tiempo total: {bs_auto_time}\n")
 
     # bs_sklearn.py
     print("Ejecutando función bs_sklearn...")
     coefs_sklearn, bs_sklearn_time = bs_sklearn(X, y, B, p, verbose = verbose)
-    print(f"Tiempo total: {bs_sklearn_time}\n")
+    print(f"tiempo total: {bs_sklearn_time}\n")
 
     # bs_numpy.py
     print("Ejecutando función bs_numpy...")
     coefs_numpy, bs_numpy_time = bs_numpy(X, y, B, p, verbose = verbose)
-    print(f"Tiempo total: {bs_numpy_time}\n")
+    print(f"tiempo total: {bs_numpy_time}\n")
 
     # print útil para el latex:
-    #print(f"{bs_auto_time} & {bs_sklearn_time} & {bs_numpy_time}")
+    #print(f"{bs_auto_time:.4f} & {bs_sklearn_time:.4f} & {bs_numpy_time:.4f}")
 
 
     ####### intervalos de confianza
@@ -53,13 +51,3 @@ if __name__ == "__main__":
     # Comparamos para varios coeficientes
     for coef_idx in confidence_interval_indices:
         compare_conf_interval(coefs_auto, coefs_sklearn, coefs_numpy, beta, coef_idx)
-
-
-    ######## actividad del sistema con bs_numpy
-
-    # Esto no funcionó muy bien tbh
-    #for p in range(1, 16):
-    #    print(f"p: {p}\n")
-    #    coefs_numpy, bs_numpy_time = bs_numpy(X, y, B, p, verbose = verbose)
-    #    for pool in threadpool_info():
-    #        print(pool)
