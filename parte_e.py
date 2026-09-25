@@ -28,15 +28,16 @@ def numpy_solve_threadpool(X, y, idx):
     
     return beta
 
-# override para que use la nueva
-def bs_numpy_threadpool(X, y, B, p, verbose = 0):
+# override para que use la nueva numpy_solve
+# agregue parametro backend para hacer expermientos
+def bs_numpy_threadpool(X, y, B, p, verbose = 0, backend = "loky"):
 
     # medir
     start = time()
 
     # calcular coefs
     tasks = [delayed(numpy_solve_threadpool)(X, y, gen_idx(X.shape[0], i)) for i in range(B)]
-    with Parallel(n_jobs=p, verbose=verbose) as parallel_pool:
+    with Parallel(n_jobs=p, verbose=verbose, backend=backend) as parallel_pool:
         parallel_results = parallel_pool(tasks)
 
     # medir
@@ -63,6 +64,11 @@ if __name__ == "__main__":
     # generar X, y
     rng = np.random.default_rng(seed=MAIN_SEED)
     beta, X, y = gen_testbench(rng, k, N)
+
+    # BACKEND
+    # si hay oversubscription, revisar diferencia entre:
+    backend = "loky"
+    #backend = "multiprocessing"
 
     # iterar sobre cantidad de workers
     for p in range(1, p_max + 1):
