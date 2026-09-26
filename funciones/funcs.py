@@ -1,4 +1,32 @@
 import numpy as np
+from time import time
+from sklearn.linear_model import LinearRegression
+
+# funcion que devuelve coeficientes de regresion con LinearRegression
+def fit_lr(X, y, idx):
+
+    # nuevos X, y con bootstrapped indices
+    X_bs, y_bs = X[idx], y[idx]
+
+    # crear y ajustar modelo
+    base_lr = LinearRegression()
+    base_lr.fit(X_bs, y_bs)
+
+    # sacar coeficientes
+    coefs = base_lr.coef_
+
+    return coefs
+
+# funcion que devuelve coeficientes de regresion con numpy
+def numpy_solve(X, y, idx):
+
+    # nuevos X, y con bootstrapped indices
+    X_bs, y_bs = X[idx], y[idx]
+
+    # crear y ajustar modelo
+    beta = np.linalg.solve(X_bs.T @ X_bs, X_bs.T @ y_bs)
+
+    return beta
 
 # generar beta, X, y
 def gen_testbench(rng, k, N):
@@ -47,3 +75,19 @@ def compare_conf_interval(coefs_auto, coefs_sklearn, coefs_numpy, beta, coef_idx
     print(f"bs_sklearn: ({sklearn_inf}, {sklearn_sup})")
     print(f"bs_numpy:   ({numpy_inf}, {numpy_sup})")
     print()
+
+# calcular todo sin paralelizar
+def non_parallel(X, y, B):
+
+    # medir
+    start = time()
+
+    # algoritmo sin paralelizar
+    for i in range(B):
+        idx = gen_idx(X.shape[0], i)
+        _ = numpy_solve(X, y, idx)
+
+    # medir
+    end = time()
+
+    return end-start

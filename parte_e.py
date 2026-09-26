@@ -4,8 +4,7 @@ from time import time
 from joblib import Parallel, delayed
 from threadpoolctl import threadpool_info
 
-from funciones.bs_numpy import numpy_solve
-from funciones.funcs import gen_testbench, gen_idx
+from funciones.funcs import gen_testbench, gen_idx, numpy_solve
 
 """ 
 ESTO SE CORRE CON:
