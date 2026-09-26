@@ -142,8 +142,8 @@ def plot_overhead(Tauto, Tsklearn, Tnumpy, T1):
 if __name__ == "__main__":
 
     # parametros
-    N = 1000
-    k = 30
+    N = 10000
+    k = 300
     B = 48
     p_max = int(sys.argv[1])
     verbose = int(sys.argv[2])
