@@ -6,8 +6,15 @@ from run_c import run_c
 formato del csv (para que todos los algoritmos queden igual):
 binary,N,p
 
-ojo con eso para poder correr
+el nombre "binary" es el nombre del EJECUTABLE que corresponde al
+codigo COMPILADO
+
+NO CORRER main.py HASTA QUE ESTEN LOS ALGORITMOS LISTOS Y COMPILADOS
+CON SUS NOMBRES BIEN PUESTOS
 """
+
+# nombre del csv a guardar
+csv_name = "resultados.csv"
 
 # nombres de los ejecutables
 binary1 = "algoritmo1"
@@ -36,7 +43,7 @@ for p in threads_list:
 
 # data frame + csv
 df = pd.DataFrame(resultados)
-df.to_csv("resultados.csv", index=False)
+df.to_csv(csv_name, index=False)
 
 # print bonito hola linn
 print("csv guardado!!! hola linn")
