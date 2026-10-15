@@ -23,7 +23,7 @@ binary2 = "algoritmo2"
 binary3 = "algoritmo3.py"
 
 # tamaño
-N = 64
+N = 2048
 
 # cantidad de threads
 threads_list = [1, 2, 4, 8]

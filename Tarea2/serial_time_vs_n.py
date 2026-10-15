@@ -19,7 +19,7 @@ csv_name = "serial_time_vs_n.csv"
 binary = "serial"
 
 # tamaño
-N = 64
+N = 2048
 
 # cantidad de threads
 n_list = [2048, 1024, 512, 256, 128, 64, 32]
