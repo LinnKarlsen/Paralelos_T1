@@ -1,6 +1,7 @@
 import pandas as pd
 
 from run_c import run_c
+from run_python import run_python
 
 """
 formato del csv (para que todos los algoritmos queden igual):
@@ -19,10 +20,10 @@ csv_name = "resultados.csv"
 # nombres de los ejecutables
 binary1 = "algoritmo1"
 binary2 = "algoritmo2"
-binary3 = "algoritmo3"
+binary3 = "algoritmo3.py"
 
 # tamaño
-N = 2048
+N = 64
 
 # cantidad de threads
 threads_list = [1, 2, 4, 8]
@@ -33,8 +34,8 @@ for p in threads_list:
 
     # correr codigos de c
     r_a1 = run_c(binary1, N, p) # en c
-    r_a2 = run_c(binary1, N, p) # en c
-    r_a3 = run_c(binary1, N, p) # en python? hay que hacer otra funcion
+    r_a2 = run_c(binary2, N, p) # en c
+    r_a3 = run_python(binary3, N, p) # en python? hay que hacer otra funcion
 
     # guardar
     resultados.append(r_a1)
