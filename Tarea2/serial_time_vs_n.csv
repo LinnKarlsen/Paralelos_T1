@@ -1,0 +1,8 @@
+algoritmo,N,n,tiempo
+serial,64,2048,0.059803
+serial,64,1024,0.043001
+serial,64,512,0.082366
+serial,64,256,0.064011
+serial,64,128,0.064993
+serial,64,64,0.054833
+serial,64,32,0.061797

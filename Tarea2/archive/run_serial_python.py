@@ -5,7 +5,7 @@ import pandas as pd
 n_list = [2048, 1024, 512, 256, 128, 64, 32]
 resultados = []
 
-for n in n_list:
+for n in n_list:    
 
     # ejecutar 
     resultado_proc = subprocess.run(

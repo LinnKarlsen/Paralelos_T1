@@ -91,6 +91,6 @@ int main(int argc, char** argv) {
         checksum += v;
     }
     //Sstd::printf("N=%d n=%d tiempo=%.2f ms checksum=%.6f\n", N, n, ms, checksum);
-    std::printf("%.2f", ms);
+    std::printf("%.6f", ms);
     return 0;
 }

@@ -20,7 +20,7 @@ def run_python(binary, N, p):
     # devolver diccionario
     return {
         "algoritmo": binary,
-        "n": str(N),
-        "p": str(p),
+        "N": str(N),
+        "threads": str(p),
         "tiempo": tiempo_medido
     }

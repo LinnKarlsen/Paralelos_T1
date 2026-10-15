@@ -1,7 +1,7 @@
 import pandas as pd
 
-from run_c import run_c
-from run_python import run_python
+from funcs.run_c import run_c
+from funcs.run_python import run_python
 
 """
 formato del csv (para que todos los algoritmos queden igual):

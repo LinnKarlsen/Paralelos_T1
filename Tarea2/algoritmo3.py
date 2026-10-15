@@ -87,7 +87,7 @@ def main():
     checksum = np.sum(C)
 
     #print(f"N={N} n={n} tiempo={(t1-t0)*1000:.2f} ms checksum={checksum:.6f}")
-    print(f"{(t1-t0)*1000:.2f}")
+    print(f"{(t1-t0)*1000:.6f}")
 
 
 if __name__ == "__main__":
