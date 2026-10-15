@@ -24,6 +24,7 @@ binary3 = "algoritmo3.py"
 
 # tamaño
 N = 2048
+n = 512
 
 # cantidad de threads
 threads_list = [1, 2, 4, 8]
@@ -33,9 +34,9 @@ resultados = [] # para guardar resultados
 for p in threads_list:
 
     # correr codigos de c
-    r_a1 = run_c(binary1, N, p) # en c
-    r_a2 = run_c(binary2, N, p) # en c
-    r_a3 = run_python(binary3, N, p) # en python? hay que hacer otra funcion
+    r_a1 = run_c(binary1, N, n, p) # en c
+    r_a2 = run_c(binary2, N, n, p) # en c
+    r_a3 = run_python(binary3, N, n, p) # en python? hay que hacer otra funcion
 
     # guardar
     resultados.append(r_a1)

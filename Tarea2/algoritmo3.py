@@ -2,7 +2,7 @@ import math
 import time
 import sys
 import numpy as np
-from numba import jit, njit, prange
+from numba import jit, njit, prange, set_num_threads, get_num_threads
 import time
 
 def det_value(i, j, offset):
@@ -75,6 +75,8 @@ def multiply_rec(A, B, C, n):
 def main():
     N = int(sys.argv[1]) if len(sys.argv) > 1 else 2048
     n = int(sys.argv[2]) if len(sys.argv) > 2 else 256
+    p = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+    set_num_threads(8)
 
     A = init_matrix(N, 1.0)
     B = init_matrix(N, 2.0)

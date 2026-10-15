@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <chrono>
+#include <omp.h>
 
 // Vista de un bloque s x s dentro de una matriz N x N (row-major), sin copiar.
 struct MatView {
@@ -74,6 +75,8 @@ int main(int argc, char** argv) {
 
     int N = (argc > 1) ? std::atoi(argv[1]) : 2048;
     int n = (argc > 2) ? std::atoi(argv[2]) : 256;
+    int p = (argc > 3) ? std::atoi(argv[3]) : 1;
+    omp_set_num_threads(p);
 
     std::vector<double> A(N * N), B(N * N), C(N * N, 0.0);
     init_matrix(A, N, 1);

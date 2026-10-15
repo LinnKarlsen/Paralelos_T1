@@ -1,13 +1,13 @@
 import subprocess
 import pandas as pd
 
-def run_python(binary, N, p):
+def run_python(binary, N, n, p):
     """
     Ejecuta el algoritmo en python y devuelve un diccionario con los resultados.
     """
     # ejecutar 
     resultado_proc = subprocess.run(
-        ["python3", binary, str(N), str(p)], 
+        ["python3", binary, str(N), str(n), str(p)], 
         capture_output=True, 
         text=True, 
         check=True

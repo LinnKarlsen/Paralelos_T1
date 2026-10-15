@@ -1,10 +1,10 @@
 import subprocess
 
-def run_c(binary, N, p):
+def run_c(binary, N, n, p):
 
     ### correr codigo de c (PREVIAMENTE COMPILADO)
     resultado_proc = subprocess.run(
-        [f"./{binary}", str(N), str(p)], 
+        [f"./{binary}", str(N), str(n), str(p)], 
         capture_output=True, 
         text=True, 
         check=True
