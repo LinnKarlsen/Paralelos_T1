@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <chrono>
+#include <omp.h>
 
 // Vista de un bloque s x s dentro de una matriz N x N (row-major), sin copiar.
 struct MatView {
@@ -33,6 +34,7 @@ void init_matrix(std::vector<double>& M, int N, double offset) {
 // Hoja: multiplicacion densa que acumula en C (C += A * B).
 void multiply_leaf(const MatView& A, const MatView& B, const MatView& C) {
     int s = C.size;
+    #pragma omp parallel for
     for (int i = 0; i < s; ++i) {
         for (int k = 0; k < s; ++k) {
             double a = A.at(i, k);

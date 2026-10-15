@@ -51,17 +51,27 @@ void multiply_rec(const MatView& A, const MatView& B, const MatView& C, int n) {
         return;
     }
     int h = s / 2;
+    #pragma omp task
     multiply_rec(A.sub(0, 0, h), B.sub(0, 0, h), C.sub(0, 0, h), n);
+    #pragma omp task
     multiply_rec(A.sub(0, h, h), B.sub(h, 0, h), C.sub(0, 0, h), n);
+    #pragma omp task
     multiply_rec(A.sub(0, 0, h), B.sub(0, h, h), C.sub(0, h, h), n);
+    #pragma omp task
     multiply_rec(A.sub(0, h, h), B.sub(h, h, h), C.sub(0, h, h), n);
+    #pragma omp task
     multiply_rec(A.sub(h, 0, h), B.sub(0, 0, h), C.sub(h, 0, h), n);
+    #pragma omp task
     multiply_rec(A.sub(h, h, h), B.sub(h, 0, h), C.sub(h, 0, h), n);
+    #pragma omp task
     multiply_rec(A.sub(h, 0, h), B.sub(0, h, h), C.sub(h, h, h), n);
+    #pragma omp task
     multiply_rec(A.sub(h, h, h), B.sub(h, h, h), C.sub(h, h, h), n);
+    #pragma omp taskwait
 }
 
 int main(int argc, char** argv) {
+
     int N = (argc > 1) ? std::atoi(argv[1]) : 2048;
     int n = (argc > 2) ? std::atoi(argv[2]) : 256;
 
