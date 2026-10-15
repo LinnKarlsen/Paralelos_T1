@@ -80,6 +80,7 @@ int main(int argc, char** argv) {
     for (double v : C) {
         checksum += v;
     }
-    std::printf("N=%d n=%d tiempo=%.2f ms checksum=%.6f\n", N, n, ms, checksum);
+    //std::printf("N=%d n=%d tiempo=%.2f ms checksum=%.6f\n", N, n, ms, checksum);
+    std::printf("%.2f", ms);
     return 0;
 }
