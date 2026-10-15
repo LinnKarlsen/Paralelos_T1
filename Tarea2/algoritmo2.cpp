@@ -74,7 +74,7 @@ void multiply_rec(const MatView& A, const MatView& B, const MatView& C, int n) {
 int main(int argc, char** argv) {
 
     int N = (argc > 1) ? std::atoi(argv[1]) : 2048;
-    int n = (argc > 2) ? std::atoi(argv[2]) : 256;
+    int n = (argc > 2) ? std::atoi(argv[2]) : 512;
     int p = (argc > 3) ? std::atoi(argv[3]) : 1;
     omp_set_num_threads(p);
 

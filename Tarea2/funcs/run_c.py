@@ -17,6 +17,7 @@ def run_c(binary, N, n, p):
     return {
         "algoritmo": binary,
         "N": N,
+        "n": n,
         "threads": p,
         "tiempo": tiempo_medido
         }
