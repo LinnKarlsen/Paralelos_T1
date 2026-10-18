@@ -1,5 +1,4 @@
 import subprocess
-import pandas as pd
 
 def run_python(binary, N, n, p):
     """

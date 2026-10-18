@@ -134,3 +134,24 @@ def plot_overhead(Ta1, Ta2, Ta3, T1):
     plt.tight_layout()
 
     return fig
+
+def plot_vs_n(T):
+
+    n_vec = [2048, 1024, 512, 256, 128, 64, 32]
+
+    fig = plt.figure(figsize=(8, 5))
+
+    # curvas
+    plt.plot(n_vec, T, marker='.', linewidth=2)
+
+    # cositas
+    plt.title("Tiempo de ejecución según tamaño de bloque")
+    plt.xlabel("Tamaño de bloque")
+    plt.ylabel("Tiempo (s)")
+
+    # mas cositas
+    plt.xticks(n_vec)
+    plt.grid(True)
+    plt.tight_layout()
+
+    return fig

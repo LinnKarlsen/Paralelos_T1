@@ -15,7 +15,7 @@ CON SUS NOMBRES BIEN PUESTOS
 """
 
 # nombre del csv a guardar
-csv_name = "resultados.csv"
+csv_name = "resultados/resultados.csv"
 
 # nombres de los ejecutables
 binary1 = "algoritmo1"
@@ -24,8 +24,8 @@ binary3 = "algoritmo3.py"
 
 # tamaño
 N = 2048
-n_data_parallelism = 512
-n_conquer = 128
+n_data_parallelism = 2048
+n_conquer = 2048
 
 # cantidad de threads
 threads_list = [1, 2, 4, 8]

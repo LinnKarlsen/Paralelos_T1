@@ -13,7 +13,7 @@ CON SUS NOMBRES BIEN PUESTOS
 """
 
 # nombre del csv a guardar
-csv_name = "serial_time_vs_n.csv"
+csv_name = "resultados/serial_time_vs_n.csv"
 
 # nombres de los ejecutables
 binary = "serial"
