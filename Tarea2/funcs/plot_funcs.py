@@ -1,7 +1,9 @@
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
 
+rcParams.update({'font.size': 17})
 
 def plot_time(Ta1, Ta2, Ta3):
 
@@ -10,7 +12,7 @@ def plot_time(Ta1, Ta2, Ta3):
     # eje x
     workers = [1, 2, 4, 8]
 
-    fig = plt.figure(figsize=(8, 5))
+    fig = plt.figure(figsize=(9, 7))
 
     # curvas
     plt.plot(workers, Ta1, marker='.', linewidth=2, label="paralelismo en loops")
@@ -42,7 +44,7 @@ def plot_speedup(Ta1, Ta2, Ta3):
     r_a2 = [Ta2[0] / tp for tp in Ta2]
     r_a3 = [Ta3[0] / tp for tp in Ta3]
 
-    fig = plt.figure(figsize=(8, 5))
+    fig = plt.figure(figsize=(9, 7))
 
     # curvas
     plt.plot(workers, r_a1, marker='.', linewidth=2, label="paralelismo en loops")
@@ -73,11 +75,11 @@ def plot_eficiencia(Ta1, Ta2, Ta3):
     workers = [1, 2, 4, 8]
 
     # calcular eficiencias
-    r_a1 = [Ta1[0] / ((i+1)*Ta1[i]) for i in range(p_max)]
-    r_a2 = [Ta2[0] / ((i+1)*Ta2[i]) for i in range(p_max)]
-    r_a3 = [Ta3[0] / ((i+1)*Ta3[i]) for i in range(p_max)]
+    r_a1 = [Ta1[0] / (Ta1[i]*workers[i]) for i in range(p_max)]
+    r_a2 = [Ta2[0] / (Ta2[i]*workers[i]) for i in range(p_max)]
+    r_a3 = [Ta3[0] / (Ta3[i]*workers[i]) for i in range(p_max)]
 
-    fig = plt.figure(figsize=(8, 5))
+    fig = plt.figure(figsize=(9, 7))
 
     # curvas
     plt.plot(workers, r_a1, marker='.', linewidth=2, label="paralelismo en loops")
@@ -112,7 +114,7 @@ def plot_overhead(Ta1, Ta2, Ta3, T1):
     r_a2 = [(i+1)*Ta2[i]-T1 for i in range(p_max)]
     r_a3 = [(i+1)*Ta3[i]-T1 for i in range(p_max)]
 
-    fig = plt.figure(figsize=(8, 5))
+    fig = plt.figure(figsize=(9, 7))
 
     # curvas
     plt.plot(workers, r_a1, marker='.', linewidth=2, label="paralelismo en loops")
@@ -139,7 +141,7 @@ def plot_vs_n(T):
 
     n_vec = [2048, 1024, 512, 256, 128, 64, 32]
 
-    fig = plt.figure(figsize=(8, 5))
+    fig = plt.figure(figsize=(9, 7))
 
     # curvas
     plt.plot(n_vec, T, marker='.', linewidth=2)
