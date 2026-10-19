@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 from funcs.run_c import run_c
 from funcs.run_python import run_python
@@ -8,8 +9,8 @@ Script adaptado para evaluar únicamente en los pares proporcionales (N, p)
 para el análisis de Escalabilidad Débil.
 """
 
-# Nombre del CSV a guardar
-csv_name = "resultados/resultados_escalabilidad_debil.csv"
+name = sys.argv[1]
+csv_name = f"resultados_{name}/resultados_escalabilidad_debil.csv"
 
 # Nombres de los ejecutables / scripts
 binary1 = "algoritmo1"

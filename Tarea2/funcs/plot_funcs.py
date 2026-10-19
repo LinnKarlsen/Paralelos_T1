@@ -158,38 +158,37 @@ def plot_vs_n(T):
 
     return fig
 
-def plot_eficiencia_debil(T_weak, workers):
+def plot_eficiencia_debil_simple(T_weak, workers):
     """
-    Plotea la eficiencia débil para un solo algoritmo.
+    Plotea la eficiencia débil para un solo algoritmo a partir de una lista de tiempos
+    medidos en tamaños proporcionales (N, p).
     
     Parámetros:
-    - T_weak: lista o array con los tiempos de ejecución midiendo 
-              con tamaño proporcional a p (T_weak[0] es p=1, N_base).
-    - workers: lista con la cantidad de workers evaluada [1, 2, 4, 8].
+    - T_weak: lista con los tiempos de ejecución ordenados por worker [T(p=1), T(p=2), T(p=4), ...]
+    - workers: lista con la cantidad de workers evaluada [1, 2, 4, 8]
     """
     p_max = len(T_weak)
 
-    # Calcular eficiencia débil: E_debil = T_1(N_base) / T_p(N_escalado)
-    # T_weak[0] representa T_1 con el tamaño base
+    # Cálculo de la Eficiencia Débil: E_débil = T_1(N_base) / T_p(N_escalado)
+    # T_weak[0] es el tiempo base con p=1 y el tamaño inicial N
     eficiencia_debil = [T_weak[0] / T_weak[i] for i in range(p_max)]
 
     fig = plt.figure(figsize=(8, 5))
 
     # Curva de eficiencia débil experimental
-    plt.plot(workers, eficiencia_debil, marker='o', linewidth=2, color='#2ca02c', label='Eficiencia Débil Experimental')
+    plt.plot(workers, eficiencia_debil, marker='.', linewidth=2)
 
-    # Línea de referencia ideal (Eficiencia = 1.0 constante)
-    plt.axhline(y=1.0, color='r', linestyle='--', label='Eficiencia Débil Ideal ($1.0$)')
+    # Línea de referencia ideal (Eficiencia Débil Ideal = 1.0 constante)
+    plt.axhline(y=1.0, color='r', linestyle='--', label='Eficiencia Débil Ideal (1.0)')
 
     # Configuración del gráfico
-    plt.title("Escalabilidad Débil - Eficiencia Débil ($E_{débil}$)", fontsize=13, fontweight='bold', pad=12)
-    plt.xlabel("Cantidad de Workers ($p$)", fontsize=12)
-    plt.ylabel("Eficiencia Débil ($T_1 / T_p$)", fontsize=12)
+    plt.title("Eficiencia débil para pares (p, N) proporcionales")
+    plt.xlabel("Cantidad de workers")
+    plt.ylabel("Eficiencia débil")
 
     # Ajustes de ejes y grilla
     plt.xticks(workers)
-    plt.ylim(0, 1.25)  # Rango óptimo para visualizar el valor ideal en 1.0
-    plt.grid(True, linestyle=':', alpha=0.6)
+    plt.ylim(0, 1.25)
     plt.legend(fontsize=11)
     plt.tight_layout()
 
