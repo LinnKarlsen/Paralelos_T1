@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 from funcs.run_c import run_c
 
 """
@@ -13,7 +14,8 @@ CON SUS NOMBRES BIEN PUESTOS
 """
 
 # nombre del csv a guardar
-csv_name = "resultados/conquer_time_vs_n.csv"
+name = sys.argv[1]
+csv_name = f"resultados_{name}/conquer_time_vs_n.csv"
 
 # nombres de los ejecutables
 binary = "algoritmo2"

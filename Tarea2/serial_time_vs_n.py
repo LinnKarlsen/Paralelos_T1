@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 from funcs.run_serial import run_serial
 
 """
@@ -13,7 +14,8 @@ CON SUS NOMBRES BIEN PUESTOS
 """
 
 # nombre del csv a guardar
-csv_name = "resultados/serial_time_vs_n.csv"
+name = sys.argv[1]
+csv_name = f"resultados_{name}/serial_time_vs_n.csv"
 
 # nombres de los ejecutables
 binary = "serial"

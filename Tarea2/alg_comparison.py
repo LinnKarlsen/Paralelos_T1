@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 from funcs.run_c import run_c
 from funcs.run_python import run_python
@@ -14,8 +15,8 @@ NO CORRER main.py HASTA QUE ESTEN LOS ALGORITMOS LISTOS Y COMPILADOS
 CON SUS NOMBRES BIEN PUESTOS
 """
 
-# nombre del csv a guardar
-csv_name = "resultados/resultados.csv"
+name = sys.argv[1]
+csv_name = f"resultados_{name}/resultados.csv"
 
 # nombres de los ejecutables
 binary1 = "algoritmo1"
