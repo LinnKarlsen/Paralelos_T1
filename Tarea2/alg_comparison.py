@@ -25,8 +25,13 @@ binary3 = "algoritmo3.py"
 
 # tamaño
 N = 2048
-n_data_parallelism = 2048
-n_conquer = 2048
+
+if name == "linn":
+    n_data_parallelism = 512
+    n_conquer = 64
+else:
+    n_data_parallelism = N
+    n_conquer = 64                          ##### CAMBIE ESTO ACA
 
 # cantidad de threads
 threads_list = [1, 2, 4, 8]

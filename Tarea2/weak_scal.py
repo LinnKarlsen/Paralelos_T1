@@ -19,11 +19,12 @@ binary3 = "algoritmo3.py"
 
 # Definir explícitamente los pares proporcionales (N, p) para escalabilidad débil
 # Ejemplo: A medida que duplicamos los hilos p, duplicamos también el tamaño de la matriz N
+
 pares_proporcionales = [
     {"p": 1, "N": 1024},
     {"p": 2, "N": 2048},
     {"p": 4, "N": 4096},
-    # {"p": 8, "N": 8192} # Descomentar si tu hardware soporta este tamaño
+    #{"p": 8, "N": 8192} # Descomentar si tu hardware soporta este tamaño
 ]
 
 resultados = []
@@ -36,8 +37,12 @@ for par in pares_proporcionales:
     N = par["N"]
     
     # Definir el tamaño de bloque n proporcional o completo según corresponda
-    n_data_parallelism = N
-    n_conquer = N 
+    if name == "linn":
+        n_data_parallelism = 512
+        n_conquer = 64
+    else:
+        n_data_parallelism = N
+        n_conquer = 64                             ### CAMBIE ESTO ACA
 
     print(f"exec N={N}, p={p}...")
 

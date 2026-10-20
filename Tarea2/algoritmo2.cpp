@@ -52,6 +52,7 @@ void multiply_rec(const MatView& A, const MatView& B, const MatView& C, int n) {
         return;
     }
     int h = s / 2;
+
     #pragma omp task
     multiply_rec(A.sub(0, 0, h), B.sub(0, 0, h), C.sub(0, 0, h), n);
     #pragma omp task
@@ -60,6 +61,8 @@ void multiply_rec(const MatView& A, const MatView& B, const MatView& C, int n) {
     multiply_rec(A.sub(0, 0, h), B.sub(0, h, h), C.sub(0, h, h), n);
     #pragma omp task
     multiply_rec(A.sub(0, h, h), B.sub(h, h, h), C.sub(0, h, h), n);
+    #pragma omp taskwait
+
     #pragma omp task
     multiply_rec(A.sub(h, 0, h), B.sub(0, 0, h), C.sub(h, 0, h), n);
     #pragma omp task
@@ -85,7 +88,11 @@ int main(int argc, char** argv) {
     MatView Av{ A.data(), N, N }, Bv{ B.data(), N, N }, Cv{ C.data(), N, N };
 
     auto t0 = std::chrono::high_resolution_clock::now();
-    multiply_rec(Av, Bv, Cv, n);
+    #pragma omp parallel
+    {
+        #pragma omp single
+        multiply_rec(Av, Bv, Cv, n);
+    }
     auto t1 = std::chrono::high_resolution_clock::now();
     double ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
 
